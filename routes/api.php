@@ -6,6 +6,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\OrdersController;
+use Illuminate\Support\Facades\Artisan;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -16,6 +18,24 @@ use App\Http\Controllers\OrdersController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Route::get('/run_ws', function(){
+    try {
+        Artisan::call('websockets:serve');
+        return json_encode(["success"=>"success", "msg"=>"Started"]);
+    } catch (\Throwable $th) {
+        return json_encode(["success"=>"false", "msg"=>$th ]);
+    }
+});
+
+Route::get('/stop_ws', function(){
+    try {
+        Artisan::call('websockets:serve --stop');
+        return json_encode(["success"=>"success", "msg"=>"Started"]);
+    } catch (\Throwable $th) {
+        return json_encode(["success"=>"false", "msg"=>$th ]);
+    }
+});
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
