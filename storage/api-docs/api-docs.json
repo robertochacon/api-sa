@@ -5,6 +5,46 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/api/run_ws": {
+            "get": {
+                "tags": [
+                    "WS"
+                ],
+                "summary": "Run websockets",
+                "description": "Run websockets",
+                "operationId": "run_ws",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/stop_ws": {
+            "get": {
+                "tags": [
+                    "WS"
+                ],
+                "summary": "Stop websockets",
+                "description": "Stop websockets",
+                "operationId": "stop_ws",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/login": {
             "post": {
                 "tags": [
@@ -23,10 +63,10 @@
                                     "password"
                                 ],
                                 "properties": {
-                                    "identification": {
+                                    "email": {
                                         "type": "string",
                                         "format": "string",
-                                        "example": "00000000000"
+                                        "example": "admin@gmail.com"
                                     },
                                     "password": {
                                         "type": "string",

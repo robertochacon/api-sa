@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Artisan;
 use App\Models\User;
 
 class AuthController extends Controller
@@ -18,7 +19,57 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+        $this->middleware('auth:api', ['except' => ['run_ws','stop_ws','login', 'register']]);
+    }
+
+     /**
+     * @OA\Get (
+     *     path="/api/run_ws",
+     *      operationId="run_ws",
+     *     tags={"WS"},
+     *     summary="Run websockets",
+     *     description="Run websockets",
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK",
+     *         @OA\JsonContent()
+     *     ),
+     * )
+     */
+
+    public function run_ws()
+    {
+        try {
+            Artisan::call('websockets:serve');
+            return json_encode(["success"=>"success", "msg"=>"Started"]);
+        } catch (\Throwable $th) {
+            return json_encode(["success"=>"false", "msg"=>$th ]);
+        }   
+    }
+
+    /**
+     * @OA\Get (
+     *     path="/api/stop_ws",
+     *      operationId="stop_ws",
+     *     tags={"WS"},
+     *     summary="Stop websockets",
+     *     description="Stop websockets",
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK",
+     *         @OA\JsonContent()
+     *     ),
+     * )
+     */
+
+    public function stop_ws()
+    {
+        try {
+            Artisan::call('websockets:serve --stop');
+            return json_encode(["success"=>"success", "msg"=>"Started"]);
+        } catch (\Throwable $th) {
+            return json_encode(["success"=>"false", "msg"=>$th ]);
+        }   
     }
 
     /**
@@ -32,7 +83,7 @@ class AuthController extends Controller
      *    required=true,
      *    @OA\JsonContent(
      *       required={"email","password"},
-     *       @OA\Property(property="identification", type="string", format="string", example="00000000000"),
+     *       @OA\Property(property="email", type="string", format="string", example="admin@gmail.com"),
      *       @OA\Property(property="password", type="string", format="password", example="admin"),
      *    ),
      * ),

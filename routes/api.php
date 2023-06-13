@@ -6,7 +6,6 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\OrdersController;
-use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,24 +18,6 @@ use Illuminate\Support\Facades\Artisan;
 |
 */
 
-Route::get('/run_ws', function(){
-    try {
-        Artisan::call('websockets:serve');
-        return json_encode(["success"=>"success", "msg"=>"Started"]);
-    } catch (\Throwable $th) {
-        return json_encode(["success"=>"false", "msg"=>$th ]);
-    }
-});
-
-Route::get('/stop_ws', function(){
-    try {
-        Artisan::call('websockets:serve --stop');
-        return json_encode(["success"=>"success", "msg"=>"Started"]);
-    } catch (\Throwable $th) {
-        return json_encode(["success"=>"false", "msg"=>$th ]);
-    }
-});
-
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -44,6 +25,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group([
     'middleware' => 'api',
 ], function ($router) {
+    Route::get('run_ws', [AuthController::class, 'run_ws']);
+    Route::get('stop_ws', [AuthController::class, 'stop_ws']);
     Route::post('login', [AuthController::class, 'login']);
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
