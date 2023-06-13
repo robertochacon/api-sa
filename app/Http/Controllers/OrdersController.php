@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Products;
 use App\Models\Orders;
+use App\Events\OrderEvent;
 
 class OrdersController extends Controller
 {
@@ -124,6 +125,9 @@ class OrdersController extends Controller
     {
         $order = new Orders(request()->all());
         $order->save();
+        $msg['msg'] = 'order_insert';
+        $msg['order'] = $order;
+        event(new OrderEvent($msg));
         return response()->json(["data"=>$order],200);
     }
 
@@ -167,6 +171,9 @@ class OrdersController extends Controller
         try{
             $order = Orders::find($id);
             $order->update($request->all());
+            $msg['msg'] = 'order_update';
+            $msg['order'] = $order;
+            event(new OrderEvent($msg));
             return response()->json(["data"=>"ok"],200);
         }catch (Exception $e) {
             return response()->json(["data"=>"none"],200);
@@ -200,6 +207,8 @@ class OrdersController extends Controller
     public function delete($id){
         try{
             $order = Orders::destroy($id);
+            $msg['msg'] = 'order_delete';
+            event(new OrderEvent($msg));
             return response()->json(["data"=>"ok"],200);
         }catch (Exception $e) {
             return response()->json(["data"=>"none"],200);
