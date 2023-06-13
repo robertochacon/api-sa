@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Products;
 use App\Models\Orders;
 
 class OrdersController extends Controller
@@ -31,8 +32,18 @@ class OrdersController extends Controller
      */
     public function index()
     {
-        $orders = Orders::orderBy('id', 'DESC')->get();
-        return response()->json(["data"=>$orders],200);
+        try{
+            $orders = Orders::all();
+            $data = [];
+            foreach ($orders as $item) {
+                $ids_products = json_decode($item['products'], TRUE);
+                $item['products'] = Products::with('categories')->whereIn('id',$ids_products)->get()->makeHidden(['category_id','image']);
+                $data['order'][] = $item;
+            }
+            return response()->json(["data"=>$data],200);
+        }catch (Exception $e) {
+            return response()->json(["data"=>[]],200);
+        }
     }
 
     /**
@@ -67,9 +78,16 @@ class OrdersController extends Controller
     public function watch($id){
         try{
             $orders = Orders::where('id','=',$id)->get();
-            return response()->json(["data"=>$orders],200);
+            $data = [];
+            foreach ($orders as $item) {
+                $ids_products = json_decode($item['products'], TRUE);
+                $item['products'] = Products::with('categories')->whereIn('id',$ids_products)->get()->makeHidden(['category_id','image']);
+                $data['order'][] = $item;
+            }
+            return response()->json(["data"=>$data],200);
+            return response()->json(["data"=>$data],200);
         }catch (Exception $e) {
-            return response()->json(["data"=>"none"],200);
+            return response()->json(["data"=>[]],200);
         }
     }
 
