@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\OrdersController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group([
     'middleware' => 'api',
 ], function ($router) {
+
     Route::get('run_ws', [AuthController::class, 'run_ws']);
     Route::get('stop_ws', [AuthController::class, 'stop_ws']);
     Route::post('login', [AuthController::class, 'login']);
@@ -53,5 +55,11 @@ Route::group([
     Route::post('/orders', [OrdersController::class, 'register']);
     Route::put('/orders/{id}', [OrdersController::class, 'update']);
     Route::delete('/orders/{id}', [OrdersController::class, 'delete']);
+
+    //users
+    Route::get('/users/', [UserController::class, 'index']);
+    Route::get('/users/{id}/', [UserController::class, 'watch']);
+    Route::put('/users/{id}/', [UserController::class, 'update']);
+    Route::delete('/users/{id}/', [UserController::class, 'delete']);    
 
 });
