@@ -45,6 +45,7 @@ Route::group([
     //products
     Route::get('/products/', [ProductsController::class, 'index']);
     Route::get('/products/{id}', [ProductsController::class, 'watch']);
+    Route::get('/products/category/{id}', [ProductsController::class, 'AllByCategory']);
     Route::post('/products', [ProductsController::class, 'register']);
     Route::put('/products/{id}', [ProductsController::class, 'update']);
     Route::delete('/products/{id}', [ProductsController::class, 'delete']);

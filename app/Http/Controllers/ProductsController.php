@@ -38,6 +38,44 @@ class ProductsController extends Controller
 
     /**
      * @OA\Get (
+     *     path="/api/products/category/{id}",
+     *      operationId="all_by_category_products",
+     *     tags={"Products"},
+     *     security={{ "apiAuth": {} }},
+     *     summary="All by category products",
+     *     description="All by category products",
+     *     @OA\Parameter(
+     *         in="path",
+     *         name="category_id",
+     *         required=true,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK",
+     *         @OA\JsonContent()
+     *     ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="NOT FOUND",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string", example="No query results for model [App\\Models\\Cliente] #id"),
+     *          )
+     *      )
+     * )
+     */
+
+     public function AllByCategory($category_id){
+        try{
+            $products = Products::with('categories')->where('category_id','=',$category_id)->get();
+            return response()->json(["data"=>$products],200);
+        }catch (Exception $e) {
+            return response()->json(["data"=>"none"],200);
+        }
+    }
+
+    /**
+     * @OA\Get (
      *     path="/api/products/{id}",
      *      operationId="all_by_id_products",
      *     tags={"Products"},
