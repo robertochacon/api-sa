@@ -39,7 +39,7 @@ class OrdersController extends Controller
             foreach ($orders as $item) {
                 $ids_products = json_decode($item['products'], TRUE);
                 $item['products'] = Products::with('categories')->whereIn('id',$ids_products)->get()->makeHidden(['category_id','image']);
-                $data['order'][] = $item;
+                $data[] = $item;
             }
             return response()->json(["data"=>$data],200);
         }catch (Exception $e) {
