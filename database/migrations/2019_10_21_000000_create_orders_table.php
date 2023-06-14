@@ -20,7 +20,7 @@ class CreateOrdersTable extends Migration
             $table->integer('total')->nullable();
             $table->string('note')->nullable();
             $table->boolean('in_restaurant')->default('1');
-            $table->enum('status',['En proceso','Completada','Cancelada'])->default('En proceso');
+            $table->enum('status',['En proceso','Preparando','Completada','Facturada','Cancelada'])->default('En proceso');
             $table->timestamps();
         });
     }

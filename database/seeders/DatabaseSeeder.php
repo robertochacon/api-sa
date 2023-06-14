@@ -23,13 +23,15 @@ class DatabaseSeeder extends Seeder
 
         //categories
         DB::table('categories')->insert([
-            ['name' => 'Categoria 1'],
-            ['name' => 'Categoria 2'],
+            ['name' => 'Entradas'],
+            ['name' => 'Plato fuerte'],
+            ['name' => 'Postre'],
+            ['name' => 'Bebidas'],
         ]);
 
         //categories
         DB::table('products')->insert([
-            ['category_id' => '1','name' => 'Producto 1','description' => 'Ejemplo descripcion 1','price' => '500'],
+            ['category_id' => '1','name' => 'Bolitas de queso','description' => 'Ricas bolitas de queso','price' => '200'],
         ]);
     }
 }
