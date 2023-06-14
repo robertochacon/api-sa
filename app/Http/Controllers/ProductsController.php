@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Products;
 
 class ProductsController extends Controller
@@ -102,9 +103,16 @@ class ProductsController extends Controller
      *  )
      */
 
-    public function register()
+    public function register(Request $request)
     {
         $product = new Products(request()->all());
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $filename = time()."-".$file->getClientOriginalName();
+            $path = "products/".$filename;
+            Storage::disk('local')->put("public/{$path}", file_get_contents($request->image));
+            $product->image = env('APP_URL')."/storage/".$path;
+         }
         $product->save();
         return response()->json(["data"=>$product],200);
     }
