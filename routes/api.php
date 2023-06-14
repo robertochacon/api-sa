@@ -37,7 +37,7 @@ Route::group([
 
     //categories
     Route::get('/categories/', [CategoriesController::class, 'index']);
-    Route::get('/categories_with_products/', [CategoriesController::class, 'indexWithProducts']);
+    Route::get('/categories/products', [CategoriesController::class, 'indexWithProducts']);
     Route::get('/categories/{id}', [CategoriesController::class, 'watch']);
     Route::post('/categories', [CategoriesController::class, 'register']);
     Route::put('/categories/{id}', [CategoriesController::class, 'update']);

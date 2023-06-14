@@ -38,7 +38,7 @@ class CategoriesController extends Controller
 
          /**
      * @OA\Get (
-     *     path="/api/categories_with_products",
+     *     path="/api/categories/products",
      *      operationId="all_categories_with_products",
      *     tags={"Categories"},
      *     security={{ "apiAuth": {} }},

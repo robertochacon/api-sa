@@ -262,7 +262,7 @@
                 ]
             }
         },
-        "/api/categories_with_products": {
+        "/api/categories/products": {
             "get": {
                 "tags": [
                     "Categories"
