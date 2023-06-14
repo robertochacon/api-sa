@@ -64,7 +64,7 @@ class CategoriesController extends Controller
         $data = [];
         foreach ($categories as $item) {
             $item['products'] = Products::where('category_id',$item['id'])->get()->makeHidden(['category_id']);
-            $data['category'][] = $item;
+            $data[] = $item;
         }
         return response()->json(["data"=>$data],200);
     }
