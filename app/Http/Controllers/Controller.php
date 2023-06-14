@@ -11,7 +11,7 @@ use Illuminate\Routing\Controller as BaseController;
  * @OA\Info(
  *    title="Api de snackpick assistant",
  *    version="1.0.0",
- *     description="<b>Estados de ordenes: </b> ['En proceso','Preparando','Completada','Facturada','Cancelada']",
+ *     description="<b>Estados de ordenes: </b> ['Recibida','Preparando','Completada','Facturada','Cancelada']",
  * ) 
  * 
  * @OA\SecurityScheme(
