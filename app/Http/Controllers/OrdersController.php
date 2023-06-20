@@ -37,8 +37,7 @@ class OrdersController extends Controller
             $orders = Orders::all();
             $data = [];
             foreach ($orders as $item) {
-                $ids_products = json_decode($item['products'], TRUE);
-                $item['products'] = Products::with('categories')->whereIn('id',$ids_products)->get()->makeHidden(['category_id','image']);
+                $item['products'] = json_decode($item['products'], TRUE);
                 $data[] = $item;
             }
             return response()->json(["data"=>$data],200);
@@ -81,11 +80,9 @@ class OrdersController extends Controller
             $orders = Orders::where('id','=',$id)->get();
             $data = [];
             foreach ($orders as $item) {
-                $ids_products = json_decode($item['products'], TRUE);
-                $item['products'] = Products::with('categories')->whereIn('id',$ids_products)->get()->makeHidden(['category_id','image']);
-                $data['order'][] = $item;
+                $item['products'] = json_decode($item['products'], TRUE);
+                $data[] = $item;
             }
-            return response()->json(["data"=>$data],200);
             return response()->json(["data"=>$data],200);
         }catch (Exception $e) {
             return response()->json(["data"=>[]],200);
