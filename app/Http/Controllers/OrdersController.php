@@ -9,6 +9,43 @@ use App\Events\OrderEvent;
 
 class OrdersController extends Controller
 {
+    
+    /**
+     * @OA\Get (
+     *     path="/api/orders/total",
+     *      operationId="all_total",
+     *     tags={"Orders"},
+     *     security={{ "apiAuth": {} }},
+     *     summary="All orders total",
+     *     description="All orders total",
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK",
+     *         @OA\JsonContent()
+     *     ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="NOT FOUND",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string", example="No query results for model [App\\Models\\Cliente] #id"),
+     *          )
+     *      )
+     * )
+     */
+    public function total()
+    {
+        try{
+
+            $data[] = DB::select("SELECT SUM(total) as day, COUNT(id) as total_day FROM orders WHERE DATE(created_at) = CURDATE()");
+            $data[] = DB::select("SELECT SUM(total) as week, COUNT(id) as total_week FROM orders WHERE YEARWEEK(`created_at`, 1) = YEARWEEK(CURDATE(), 1)");
+            $data[] = DB::select("SELECT SUM(total) as month, COUNT(id) as total_month FROM orders WHERE MONTH(created_at) = MONTH(CURRENT_DATE()) AND YEAR(created_at) = YEAR(CURRENT_DATE())");
+
+            return response()->json(["data"=>$data],200);
+        }catch (Exception $e) {
+            return response()->json(["data"=>[]],200);
+        }
+    }
+
      /**
      * @OA\Get (
      *     path="/api/orders",

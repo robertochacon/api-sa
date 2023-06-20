@@ -53,6 +53,7 @@ Route::group([
 
     //orders
     Route::get('/orders/', [OrdersController::class, 'index']);
+    Route::get('/orders/total/', [OrdersController::class, 'total']);
     Route::get('/orders/{id}', [OrdersController::class, 'watch']);
     Route::post('/orders', [OrdersController::class, 'register']);
     Route::put('/orders/{id}', [OrdersController::class, 'update']);
