@@ -36,9 +36,9 @@ class OrdersController extends Controller
     {
         try{
 
-            $data[] = DB::select("SELECT SUM(total) as day, COUNT(id) as total_day FROM orders WHERE DATE(created_at) = CURDATE()");
-            $data[] = DB::select("SELECT SUM(total) as week, COUNT(id) as total_week FROM orders WHERE YEARWEEK(`created_at`, 1) = YEARWEEK(CURDATE(), 1)");
-            $data[] = DB::select("SELECT SUM(total) as month, COUNT(id) as total_month FROM orders WHERE MONTH(created_at) = MONTH(CURRENT_DATE()) AND YEAR(created_at) = YEAR(CURRENT_DATE())");
+            $data[] = DB::select("SELECT SUM(total) as day, COUNT(id) as total_day FROM orders WHERE DATE(created_at) = CURDATE() AND status = 'Facturada'");
+            $data[] = DB::select("SELECT SUM(total) as week, COUNT(id) as total_week FROM orders WHERE YEARWEEK(`created_at`, 1) = YEARWEEK(CURDATE(), 1) AND status = 'Facturada'");
+            $data[] = DB::select("SELECT SUM(total) as month, COUNT(id) as total_month FROM orders WHERE MONTH(created_at) = MONTH(CURRENT_DATE()) AND YEAR(created_at) = YEAR(CURRENT_DATE()) AND status = 'Facturada'");
 
             return response()->json(["data"=>$data],200);
         }catch (Exception $e) {
