@@ -140,7 +140,7 @@ class CategoriesController extends Controller
     }
 
      /**
-     * @OA\Put(
+     * @OA\Post(
      *      path="/api/categories/{id}",
      *      operationId="update_categories",
      *      tags={"Categories"},
@@ -172,7 +172,7 @@ class CategoriesController extends Controller
 
     public function update(Request $request, $id){
         try{
-            $category = Categories::find($id);
+            $category = Categories::where('id',$id)->first();
             $category->update($request->all());
             return response()->json(["data"=>"ok"],200);
         }catch (Exception $e) {

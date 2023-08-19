@@ -40,7 +40,7 @@ Route::group([
     Route::get('/categories/products', [CategoriesController::class, 'indexWithProducts']);
     Route::get('/categories/{id}', [CategoriesController::class, 'watch']);
     Route::post('/categories', [CategoriesController::class, 'register']);
-    Route::put('/categories/{id}', [CategoriesController::class, 'update']);
+    Route::post('/categories/{id}', [CategoriesController::class, 'update']);
     Route::delete('/categories/{id}', [CategoriesController::class, 'delete']);
 
     //products
@@ -48,7 +48,7 @@ Route::group([
     Route::get('/products/{id}', [ProductsController::class, 'watch']);
     Route::get('/products/category/{id}', [ProductsController::class, 'AllByCategory']);
     Route::post('/products', [ProductsController::class, 'register']);
-    Route::put('/products/{id}', [ProductsController::class, 'update']);
+    Route::post('/products/{id}', [ProductsController::class, 'update']);
     Route::delete('/products/{id}', [ProductsController::class, 'delete']);
 
     //orders

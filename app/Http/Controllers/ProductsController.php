@@ -143,20 +143,20 @@ class ProductsController extends Controller
 
     public function register(Request $request)
     {
-        $product = new Products(request()->all());
+        $data = $request->all();
         if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $filename = time()."-".$file->getClientOriginalName();
-            $path = "products/".$filename;
-            Storage::disk('local')->put("public/{$path}", file_get_contents($request->image));
-            $product->image = env('APP_URL')."/storage/".$path;
-         }
+            $uploadFile = $request->file('image');
+            $file_name = $uploadFile->hashName();
+            $uploadFile->storeAs('public/products', $file_name);
+            $data['image'] = request()->getSchemeAndHttpHost().'/storage/products/'.$file_name;
+        }
+        $product = new Products($data);
         $product->save();
         return response()->json(["data"=>$product],200);
     }
 
      /**
-     * @OA\Put(
+     * @OA\Post(
      *      path="/api/products/{id}",
      *      operationId="update_products",
      *      tags={"Products"},
@@ -193,8 +193,15 @@ class ProductsController extends Controller
 
     public function update(Request $request, $id){
         try{
-            $product = Products::find($id);
-            $product->update($request->all());
+            $data = $request->all();
+            if ($request->hasFile('image')) {
+                $uploadFile = $request->file('image');
+                $file_name = $uploadFile->hashName();
+                $uploadFile->storeAs('public/products', $file_name);
+                $data['image'] = request()->getSchemeAndHttpHost().'/storage/products/'.$file_name;
+            }
+            $product = Products::where('id',$id)->first();
+            $product->update($data);
             return response()->json(["data"=>"ok"],200);
         }catch (Exception $e) {
             return response()->json(["data"=>"none"],200);
