@@ -52,7 +52,7 @@
                     "Login"
                 ],
                 "summary": "Sign in",
-                "description": "Login by email, password",
+                "description": "Login by code",
                 "operationId": "authLogin",
                 "requestBody": {
                     "required": true,
@@ -60,19 +60,13 @@
                         "application/json": {
                             "schema": {
                                 "required": [
-                                    "email",
-                                    "password"
+                                    "code"
                                 ],
                                 "properties": {
-                                    "email": {
+                                    "code": {
                                         "type": "string",
                                         "format": "string",
-                                        "example": "admin@gmail.com"
-                                    },
-                                    "password": {
-                                        "type": "string",
-                                        "format": "password",
-                                        "example": "admin"
+                                        "example": "2023"
                                     }
                                 },
                                 "type": "object"
@@ -114,18 +108,14 @@
                         "application/json": {
                             "schema": {
                                 "required": [
-                                    "name",
-                                    "email",
-                                    "password"
+                                    "code",
+                                    "name"
                                 ],
                                 "properties": {
+                                    "code": {
+                                        "type": "string"
+                                    },
                                     "name": {
-                                        "type": "string"
-                                    },
-                                    "email": {
-                                        "type": "string"
-                                    },
-                                    "password": {
                                         "type": "string"
                                     }
                                 },

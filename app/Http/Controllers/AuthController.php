@@ -76,15 +76,14 @@ class AuthController extends Controller
      * @OA\Post(
      * path="/api/login",
      * summary="Sign in",
-     * description="Login by email, password",
+     * description="Login by code",
      * operationId="authLogin",
      * tags={"Login"},
      * @OA\RequestBody(
      *    required=true,
      *    @OA\JsonContent(
-     *       required={"email","password"},
-     *       @OA\Property(property="email", type="string", format="string", example="admin@gmail.com"),
-     *       @OA\Property(property="password", type="string", format="password", example="admin"),
+     *       required={"code"},
+     *       @OA\Property(property="code", type="string", format="string", example="2023"),
      *    ),
      * ),
      * @OA\Response(
@@ -99,13 +98,18 @@ class AuthController extends Controller
 
     public function login()
     {
-        $credentials = request(['email', 'password']);
+        $credentials = request(['code']);
+        $credentials['password'] = '2023';
 
         if (! $token = auth()->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        return $this->respondWithToken($token);
+        $user = User::where('id',auth()->user()['id'])->first();
+        $datos['token'] = $token;
+        $datos['user'] = $user;
+        return $this->respondWithToken($datos);
+
     }
 
     /**
@@ -167,10 +171,9 @@ class AuthController extends Controller
     *      @OA\RequestBody(
     *         required=true,
     *         @OA\JsonContent(
-    *               required={"name","email", "password"},
+    *               required={"code","name"},
+    *               @OA\Property(property="code", type="string"),
     *               @OA\Property(property="name", type="string"),
-    *               @OA\Property(property="email", type="string"),
-    *               @OA\Property(property="password", type="string"),
     *         ),
     *      ),
     *      @OA\Response(
@@ -195,23 +198,21 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'email' => 'required|string|email|max:100|unique:users',
-            'password' => 'required|string|min:6',
-        ]);
-        if($validator->fails()){
-            return response()->json($validator->errors()->toJson(),400);
+
+        try {
+            $data = $request->all();
+            $data['password'] = bcrypt('2023');
+            $user = User::create($data);
+    
+            return response()->json([
+                'message' => '¡Usuario registrado exitosamente!',
+                'user' => $user
+            ], 201);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'message' => $th,
+            ], 500);
         }
 
-        $user = User::create(array_merge(
-            $validator->validate(),
-            ['password' => bcrypt($request->password)]
-        ));
-
-        return response()->json([
-            'message' => '¡Usuario registrado exitosamente!',
-            'user' => $user
-        ], 201);
     }
 }

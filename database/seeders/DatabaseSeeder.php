@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
 
         //users
         DB::table('users')->insert([
-            ['name' => 'Admin','email' => 'admin@gmail.com','password' => bcrypt('admin'), 'created_at' => date("Y-m-d H:i:s")],
+            ['code' => '2023','name' => 'Admin','password' => bcrypt('2023'), 'created_at' => date("Y-m-d H:i:s")],
         ]);
 
         //categories
