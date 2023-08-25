@@ -93,7 +93,7 @@ class UserController extends Controller
     }
 
     /**
-     * @OA\Put (
+     * @OA\Post (
      *     path="/api/users/{id}",
      *      operationId="update_user",
      *     tags={"Users"},
@@ -131,7 +131,7 @@ class UserController extends Controller
 
     public function update(Request $request, $id){
         try{
-            $user = User::find($id);
+            $user = User::where('id',$id)->first();
             $user->update($request->all());
             return response()->json(["data"=>"ok"],200);
         }catch (Exception $e) {
