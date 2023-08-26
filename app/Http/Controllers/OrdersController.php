@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Products;
+use App\Models\Categories;
+use App\Models\User;
 use App\Models\Orders;
 use App\Events\OrderEvent;
 use Carbon\Carbon;
@@ -46,6 +48,10 @@ class OrdersController extends Controller
 
             $data['orders']['year'] = Orders::where('status','Facturada')->whereYear('created_at', Carbon::now()->year)->count();
             $data['orders']['total_year'] = Orders::where('status','Facturada')->whereYear('created_at', Carbon::now()->year)->sum('total');
+
+            $data['totales']['categories'] = Categories::count();
+            $data['totales']['products'] = Products::count();
+            $data['totales']['users'] = User::count();
 
             return response()->json(["data"=>$data],200);
         }catch (Exception $e) {
