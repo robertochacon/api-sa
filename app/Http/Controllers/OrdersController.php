@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\Products;
 use App\Models\Orders;
 use App\Events\OrderEvent;
+use Carbon\Carbon;
 
 class OrdersController extends Controller
 {
@@ -36,9 +38,14 @@ class OrdersController extends Controller
     {
         try{
 
-            $data[] = DB::select("SELECT SUM(total) as day, COUNT(id) as total_day FROM orders WHERE DATE(created_at) = CURDATE() AND status = 'Facturada'");
-            $data[] = DB::select("SELECT SUM(total) as week, COUNT(id) as total_week FROM orders WHERE YEARWEEK(`created_at`, 1) = YEARWEEK(CURDATE(), 1) AND status = 'Facturada'");
-            $data[] = DB::select("SELECT SUM(total) as month, COUNT(id) as total_month FROM orders WHERE MONTH(created_at) = MONTH(CURRENT_DATE()) AND YEAR(created_at) = YEAR(CURRENT_DATE()) AND status = 'Facturada'");
+            $data['orders']['today'] = Orders::where('status','Facturada')->whereDate('created_at', Carbon::today())->count();
+            $data['orders']['total_today'] = Orders::where('status','Facturada')->whereDate('created_at', Carbon::today())->sum('total');
+
+            $data['orders']['month'] = Orders::where('status','Facturada')->whereMonth('created_at', Carbon::now()->month)->count();
+            $data['orders']['total_month'] = Orders::where('status','Facturada')->whereMonth('created_at', Carbon::now()->month)->sum('total');
+
+            $data['orders']['year'] = Orders::where('status','Facturada')->whereYear('created_at', Carbon::now()->year)->count();
+            $data['orders']['total_year'] = Orders::where('status','Facturada')->whereYear('created_at', Carbon::now()->year)->sum('total');
 
             return response()->json(["data"=>$data],200);
         }catch (Exception $e) {
