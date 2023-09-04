@@ -6,6 +6,26 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/api/clear_cache": {
+            "get": {
+                "tags": [
+                    "Clear cache"
+                ],
+                "summary": "Clear cache",
+                "description": "Clear cache",
+                "operationId": "clear_cache",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/run_ws": {
             "get": {
                 "tags": [

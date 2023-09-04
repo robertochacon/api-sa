@@ -27,6 +27,7 @@ Route::group([
     'middleware' => 'api',
 ], function ($router) {
 
+    Route::get('clear_cache', [AuthController::class, 'clear_cache']);
     Route::get('run_ws', [AuthController::class, 'run_ws']);
     Route::get('stop_ws', [AuthController::class, 'stop_ws']);
     Route::post('login', [AuthController::class, 'login']);

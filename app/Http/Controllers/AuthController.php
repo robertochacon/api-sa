@@ -19,8 +19,32 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['run_ws','stop_ws','login', 'register']]);
+        $this->middleware('auth:api', ['except' => ['clear_cache','run_ws','stop_ws','login', 'register']]);
     }
+
+    /**
+     * @OA\Get (
+     *     path="/api/clear_cache",
+     *      operationId="clear_cache",
+     *     tags={"Clear cache"},
+     *     summary="Clear cache",
+     *     description="Clear cache",
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK",
+     *         @OA\JsonContent()
+     *     ),
+     * )
+     */
+
+     public function clear_cache()
+     {
+        Artisan::call('cache:clear');
+        Artisan::call('route:clear');
+        Artisan::call('config:cache');
+     
+        return "Cache cleared successfully"; 
+     }
 
      /**
      * @OA\Get (
