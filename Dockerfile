@@ -18,8 +18,9 @@ RUN mkdir -p /app/storage/logs
 RUN php artisan cache:clear
 RUN php artisan view:clear
 RUN php artisan config:clear
+RUN php artisan l5-swagger:generate
+RUN php artisan migrate:fresh --seed
 # RUN php artisan octane:install --server="swoole"
-# CMD php artisan serve --host="0.0.0.0" && php artisan websockets:serve --host="0.0.0.0"
-CMD php artisan serve --host="0.0.0.0"
+CMD php artisan serve --host="0.0.0.0" --port=8002
 
-EXPOSE 8001
+EXPOSE 8002
