@@ -21,6 +21,7 @@ RUN php artisan config:clear
 RUN php artisan l5-swagger:generate
 RUN php artisan migrate:fresh --seed
 # RUN php artisan octane:install --server="swoole"
-CMD php artisan serve --host="0.0.0.0" --port=8002 && php artisan websockets:serve --port=6001
+# CMD php artisan serve --host="0.0.0.0" --port=8002 && php artisan websockets:serve --port=6001
+CMD php artisan serve --host="0.0.0.0" --port=8002
 
-EXPOSE 8002 6001
+EXPOSE 8002
