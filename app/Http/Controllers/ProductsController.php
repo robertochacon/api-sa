@@ -10,12 +10,18 @@ class ProductsController extends Controller
 {
      /**
      * @OA\Get (
-     *     path="/api/products",
+     *     path="/api/products/all/{id}",
      *      operationId="all_products",
      *     tags={"Products"},
      *     security={{ "apiAuth": {} }},
      *     summary="All products",
      *     description="All products",
+     *     @OA\Parameter(
+     *         in="path",
+     *         name="id",
+     *         required=true,
+     *         @OA\Schema(type="string")
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="OK",
@@ -30,9 +36,9 @@ class ProductsController extends Controller
      *      )
      * )
      */
-    public function index()
+    public function index($id)
     {
-        $products = Products::with('categories')->orderBy('id', 'DESC')->get();
+        $products = Products::where('id_entity','=',$id)->with('categories')->orderBy('id', 'DESC')->get();
         return response()->json(["data"=>$products],200);
     }
 

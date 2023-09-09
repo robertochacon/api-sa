@@ -15,10 +15,12 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('id_entity')->nullable();
+            $table->foreign('id_entity')->references('id')->on('entities');
             $table->string('code')->unique();
             $table->string('name')->nullable();
             $table->string('password');
-            $table->enum('role',['Vendedor','Administrador'])->default('Vendedor');
+            $table->enum('role',['Vendedor','Administrador','Gestor'])->default('Vendedor');
             $table->enum('status',['Disponible','No disponible'])->default('Disponible');
             $table->rememberToken();
             $table->timestamps();

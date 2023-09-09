@@ -10,12 +10,18 @@ class CategoriesController extends Controller
 {
      /**
      * @OA\Get (
-     *     path="/api/categories",
+     *     path="/api/categories/all/{id}",
      *      operationId="all_categories",
      *     tags={"Categories"},
      *     security={{ "apiAuth": {} }},
      *     summary="All categories",
      *     description="All categories",
+     *     @OA\Parameter(
+     *         in="path",
+     *         name="id",
+     *         required=true,
+     *         @OA\Schema(type="string")
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="OK",
@@ -30,20 +36,26 @@ class CategoriesController extends Controller
      *      )
      * )
      */
-    public function index()
+    public function index($id)
     {
-        $categories = Categories::orderBy('id', 'DESC')->get();
+        $categories = Categories::where('id_entity','=',$id)->orderBy('id', 'DESC')->get();
         return response()->json(["data"=>$categories],200);
     }
 
          /**
      * @OA\Get (
-     *     path="/api/categories/products",
+     *     path="/api/categories/products/{id}",
      *      operationId="all_categories_with_products",
      *     tags={"Categories"},
      *     security={{ "apiAuth": {} }},
      *     summary="All categories with products",
      *     description="All categories with products",
+     *     @OA\Parameter(
+     *         in="path",
+     *         name="id",
+     *         required=true,
+     *         @OA\Schema(type="string")
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="OK",
@@ -58,9 +70,9 @@ class CategoriesController extends Controller
      *      )
      * )
      */
-    public function indexWithProducts()
+    public function indexWithProducts($id)
     {
-        $categories = Categories::orderBy('id', 'DESC')->get();
+        $categories = Categories::where('id_entity','=',$id)->orderBy('id', 'DESC')->get();
         $data = [];
         foreach ($categories as $item) {
             $item['products'] = Products::where('category_id',$item['id'])->get()->makeHidden(['category_id']);

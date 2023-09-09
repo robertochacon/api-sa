@@ -9,6 +9,12 @@ class Orders extends Model
     protected $table = 'orders';
 
     protected $fillable = [
-        'id','products','table','total','note','in_restaurant','status'
+        'id','id_entity','products','table','total','note','in_restaurant','status'
     ];
+
+    public function entity()
+    {
+    	return $this->belongsTo('App\Models\Entities', 'id_entity');
+    }
+    
 }

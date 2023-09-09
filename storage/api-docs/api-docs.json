@@ -178,7 +178,7 @@
                 }
             }
         },
-        "/api/categories": {
+        "/api/categories/all/{id}": {
             "get": {
                 "tags": [
                     "Categories"
@@ -186,6 +186,16 @@
                 "summary": "All categories",
                 "description": "All categories",
                 "operationId": "all_categories",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -217,63 +227,9 @@
                         "apiAuth": []
                     }
                 ]
-            },
-            "post": {
-                "tags": [
-                    "Categories"
-                ],
-                "summary": "Store categories",
-                "description": "Store categories",
-                "operationId": "store_categories",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": [
-                                    "name"
-                                ],
-                                "properties": {
-                                    "name": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "name"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Success",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "status": {
-                                            "type": "integer",
-                                            "example": ""
-                                        },
-                                        "data": {
-                                            "type": "object"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "apiAuth": []
-                    }
-                ]
             }
         },
-        "/api/categories/products": {
+        "/api/categories/products/{id}": {
             "get": {
                 "tags": [
                     "Categories"
@@ -281,6 +237,16 @@
                 "summary": "All categories with products",
                 "description": "All categories with products",
                 "operationId": "all_categories_with_products",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -473,7 +439,389 @@
                 ]
             }
         },
-        "/api/orders/total": {
+        "/api/categories": {
+            "post": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Store categories",
+                "description": "Store categories",
+                "operationId": "store_categories",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "name"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": ""
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/entities": {
+            "get": {
+                "tags": [
+                    "Entities"
+                ],
+                "summary": "See all entity",
+                "description": "See all entity",
+                "operationId": "all_entities",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "number",
+                                            "example": 1
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Process"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "example": "2023-02-23T00:09:16.000000Z"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "example": "2023-02-23T12:33:45.000000Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "NOT FOUND",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "No query results for model [App\\\\Models\\\\Cliente] #id"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Entities"
+                ],
+                "summary": "Store entity",
+                "description": "Store entity",
+                "operationId": "store_entities",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id_employee",
+                                    "description"
+                                ],
+                                "properties": {
+                                    "id_employee": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "1"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Description"
+                                    },
+                                    "total": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "100"
+                                    },
+                                    "type": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "commissions"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": ""
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/entities/{id}": {
+            "get": {
+                "tags": [
+                    "Entities"
+                ],
+                "summary": "See entity",
+                "description": "See entity",
+                "operationId": "watch_entities",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "number",
+                                            "example": 1
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Process"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "example": "2023-02-23T00:09:16.000000Z"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "example": "2023-02-23T12:33:45.000000Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "NOT FOUND",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "No query results for model [App\\\\Models\\\\Cliente] #id"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Entities"
+                ],
+                "summary": "Update entity",
+                "description": "Update entity",
+                "operationId": "update_entities",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id_employee",
+                                    "description"
+                                ],
+                                "properties": {
+                                    "id_employee": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "1"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Description"
+                                    },
+                                    "total": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "100"
+                                    },
+                                    "type": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "commissions"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": ""
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Entities"
+                ],
+                "summary": "Delete entity",
+                "description": "Delete entity",
+                "operationId": "delete_entities",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": ""
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/orders/total/{id}": {
             "get": {
                 "tags": [
                     "Orders"
@@ -481,6 +829,16 @@
                 "summary": "All orders total",
                 "description": "All orders total",
                 "operationId": "all_total",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -514,7 +872,7 @@
                 ]
             }
         },
-        "/api/orders": {
+        "/api/orders/all/{id}": {
             "get": {
                 "tags": [
                     "Orders"
@@ -522,6 +880,16 @@
                 "summary": "All orders",
                 "description": "All orders",
                 "operationId": "all_orders",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -540,80 +908,6 @@
                                         "message": {
                                             "type": "string",
                                             "example": "No query results for model [App\\\\Models\\\\Cliente] #id"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "apiAuth": []
-                    }
-                ]
-            },
-            "post": {
-                "tags": [
-                    "Orders"
-                ],
-                "summary": "Store orders",
-                "description": "Store orders",
-                "operationId": "store_orders",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": [
-                                    "name"
-                                ],
-                                "properties": {
-                                    "products": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "[1,2,3]"
-                                    },
-                                    "table": {
-                                        "type": "number",
-                                        "format": "string",
-                                        "example": "2"
-                                    },
-                                    "total": {
-                                        "type": "number",
-                                        "format": "string",
-                                        "example": "100.00"
-                                    },
-                                    "note": {
-                                        "type": "number",
-                                        "format": "number",
-                                        "example": "note"
-                                    },
-                                    "in_restaurant": {
-                                        "type": "boolean",
-                                        "format": "boolean",
-                                        "example": "true"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Success",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "status": {
-                                            "type": "integer",
-                                            "example": ""
-                                        },
-                                        "data": {
-                                            "type": "object"
                                         }
                                     },
                                     "type": "object"
@@ -813,53 +1107,14 @@
                 ]
             }
         },
-        "/api/products": {
-            "get": {
-                "tags": [
-                    "Products"
-                ],
-                "summary": "All products",
-                "description": "All products",
-                "operationId": "all_products",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "NOT FOUND",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "No query results for model [App\\\\Models\\\\Cliente] #id"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "apiAuth": []
-                    }
-                ]
-            },
+        "/api/orders": {
             "post": {
                 "tags": [
-                    "Products"
+                    "Orders"
                 ],
-                "summary": "Store products",
-                "description": "Store products",
-                "operationId": "store_products",
+                "summary": "Store orders",
+                "description": "Store orders",
+                "operationId": "store_orders",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -869,30 +1124,30 @@
                                     "name"
                                 ],
                                 "properties": {
-                                    "category_id": {
+                                    "products": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "[1,2,3]"
+                                    },
+                                    "table": {
+                                        "type": "number",
+                                        "format": "string",
+                                        "example": "2"
+                                    },
+                                    "total": {
+                                        "type": "number",
+                                        "format": "string",
+                                        "example": "100.00"
+                                    },
+                                    "note": {
                                         "type": "number",
                                         "format": "number",
-                                        "example": "1"
+                                        "example": "note"
                                     },
-                                    "name": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "name"
-                                    },
-                                    "description": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "description"
-                                    },
-                                    "price": {
-                                        "type": "number",
-                                        "format": "number",
-                                        "example": "0.00"
-                                    },
-                                    "image": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "image"
+                                    "in_restaurant": {
+                                        "type": "boolean",
+                                        "format": "boolean",
+                                        "example": "true"
                                     }
                                 },
                                 "type": "object"
@@ -913,6 +1168,57 @@
                                         },
                                         "data": {
                                             "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/products/all/{id}": {
+            "get": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "All products",
+                "description": "All products",
+                "operationId": "all_products",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "NOT FOUND",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "No query results for model [App\\\\Models\\\\Cliente] #id"
                                         }
                                     },
                                     "type": "object"
@@ -1135,6 +1441,82 @@
                         }
                     }
                 ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": ""
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/products": {
+            "post": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Store products",
+                "description": "Store products",
+                "operationId": "store_products",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name"
+                                ],
+                                "properties": {
+                                    "category_id": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "1"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "name"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "description"
+                                    },
+                                    "price": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "0.00"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "image"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
                         "description": "Success",

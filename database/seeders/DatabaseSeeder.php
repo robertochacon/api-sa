@@ -17,23 +17,30 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
+        //entities
+        DB::table('entities')->insert([
+            ['name' => 'Example bussines','description' => 'business example desc.','phone' => null, 'created_at' => date("Y-m-d H:i:s")],
+        ]);
+
         //users
         DB::table('users')->insert([
-            ['code' => '2023','name' => 'Admin','password' => bcrypt('2023'), 'created_at' => date("Y-m-d H:i:s")],
+            ['id_entity' => 1,'code' => '0000','name' => 'Gestor','role' => 'Gestor','password' => bcrypt('2023'), 'created_at' => date("Y-m-d H:i:s")],
+            ['id_entity' => 1,'code' => '2023','name' => 'Administrador','role' => 'Administrador','password' => bcrypt('2023'), 'created_at' => date("Y-m-d H:i:s")],
+            ['id_entity' => 1,'code' => '2024','name' => 'Vendedor','role' => 'Vendedor','password' => bcrypt('2023'), 'created_at' => date("Y-m-d H:i:s")],
         ]);
 
         //categories
         DB::table('categories')->insert([
-            ['name' => 'Entradas', 'created_at' => date("Y-m-d H:i:s")],
-            ['name' => 'Plato fuerte', 'created_at' => date("Y-m-d H:i:s")],
-            ['name' => 'Especialidad', 'created_at' => date("Y-m-d H:i:s")],
-            ['name' => 'Postre', 'created_at' => date("Y-m-d H:i:s")],
-            ['name' => 'Bebidas', 'created_at' => date("Y-m-d H:i:s")],
+            ['id_entity' => 1,'name' => 'Entradas', 'created_at' => date("Y-m-d H:i:s")],
+            ['id_entity' => 1,'name' => 'Platos fuertes', 'created_at' => date("Y-m-d H:i:s")],
+            ['id_entity' => 1,'name' => 'Especialidades', 'created_at' => date("Y-m-d H:i:s")],
+            ['id_entity' => 1,'name' => 'Postres', 'created_at' => date("Y-m-d H:i:s")],
+            ['id_entity' => 1,'name' => 'Bebidas', 'created_at' => date("Y-m-d H:i:s")],
         ]);
 
         //categories
         DB::table('products')->insert([
-            ['category_id' => '1','name' => 'Bolitas de queso','description' => 'Ricas bolitas de queso','price' => '200'],
+            ['id_entity' => 1,'category_id' => '1','name' => 'Bolitas de queso','description' => 'Ricas bolitas de queso','price' => '200'],
         ]);
 
         Storage::makeDirectory('public/products');

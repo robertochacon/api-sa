@@ -16,12 +16,18 @@ class OrdersController extends Controller
     
     /**
      * @OA\Get (
-     *     path="/api/orders/total",
+     *     path="/api/orders/total/{id}",
      *      operationId="all_total",
      *     tags={"Orders"},
      *     security={{ "apiAuth": {} }},
      *     summary="All orders total",
      *     description="All orders total",
+     *     @OA\Parameter(
+     *         in="path",
+     *         name="id",
+     *         required=true,
+     *         @OA\Schema(type="string")
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="OK",
@@ -36,22 +42,22 @@ class OrdersController extends Controller
      *      )
      * )
      */
-    public function total()
+    public function total($id)
     {
         try{
 
-            $data['orders']['today'] = Orders::where('status','Facturada')->whereDate('created_at', Carbon::today())->count();
-            $data['orders']['total_today'] = Orders::where('status','Facturada')->whereDate('created_at', Carbon::today())->sum('total');
+            $data['orders']['today'] = Orders::where('id_entity','=',$id)->where('status','Facturada')->whereDate('created_at', Carbon::today())->count();
+            $data['orders']['total_today'] = Orders::where('id_entity','=',$id)->where('status','Facturada')->whereDate('created_at', Carbon::today())->sum('total');
 
-            $data['orders']['month'] = Orders::where('status','Facturada')->whereMonth('created_at', Carbon::now()->month)->count();
-            $data['orders']['total_month'] = Orders::where('status','Facturada')->whereMonth('created_at', Carbon::now()->month)->sum('total');
+            $data['orders']['month'] = Orders::where('id_entity','=',$id)->where('status','Facturada')->whereMonth('created_at', Carbon::now()->month)->count();
+            $data['orders']['total_month'] = Orders::where('id_entity','=',$id)->where('status','Facturada')->whereMonth('created_at', Carbon::now()->month)->sum('total');
 
-            $data['orders']['year'] = Orders::where('status','Facturada')->whereYear('created_at', Carbon::now()->year)->count();
-            $data['orders']['total_year'] = Orders::where('status','Facturada')->whereYear('created_at', Carbon::now()->year)->sum('total');
+            $data['orders']['year'] = Orders::where('id_entity','=',$id)->where('status','Facturada')->whereYear('created_at', Carbon::now()->year)->count();
+            $data['orders']['total_year'] = Orders::where('id_entity','=',$id)->where('status','Facturada')->whereYear('created_at', Carbon::now()->year)->sum('total');
 
-            $data['totales']['categories'] = Categories::count();
-            $data['totales']['products'] = Products::count();
-            $data['totales']['users'] = User::count();
+            $data['totales']['categories'] = Categories::where('id_entity','=',$id)->count();
+            $data['totales']['products'] = Products::where('id_entity','=',$id)->count();
+            $data['totales']['users'] = User::where('id_entity','=',$id)->count();
 
             return response()->json(["data"=>$data],200);
         }catch (Exception $e) {
@@ -61,12 +67,18 @@ class OrdersController extends Controller
 
      /**
      * @OA\Get (
-     *     path="/api/orders",
+     *     path="/api/orders/all/{id}",
      *      operationId="all_orders",
      *     tags={"Orders"},
      *     security={{ "apiAuth": {} }},
      *     summary="All orders",
      *     description="All orders",
+     *     @OA\Parameter(
+     *         in="path",
+     *         name="id",
+     *         required=true,
+     *         @OA\Schema(type="string")
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="OK",
@@ -81,10 +93,10 @@ class OrdersController extends Controller
      *      )
      * )
      */
-    public function index()
+    public function index($id)
     {
         try{
-            $orders = Orders::all();
+            $orders = Orders::where('id_entity','=',$id)->get();
             $data = [];
             foreach ($orders as $item) {
                 $item['products'] = json_decode($item['products'], TRUE);
