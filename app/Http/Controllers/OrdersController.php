@@ -184,6 +184,7 @@ class OrdersController extends Controller
     {
         $order = new Orders(request()->all());
         $order->save();
+        // $msg['entity'] = request()->id_entity;
         $msg['msg'] = 'order_insert';
         $msg['order'] = $order;
         event(new OrderEvent($msg));
