@@ -40,7 +40,14 @@ class DatabaseSeeder extends Seeder
 
         //categories
         DB::table('products')->insert([
-            ['id_entity' => 1,'category_id' => '1','name' => 'Bolitas de queso','description' => 'Ricas bolitas de queso','price' => '200'],
+            ['id_entity' => 1,'category_id' => '1','name' => 'Bolitas de queso','description' => 'Ricas bolitas de queso','price' => '250'],
+            ['id_entity' => 1,'category_id' => '1','name' => 'Nachos de yautia','description' => 'Nachos de yautia','price' => '250'],
+            ['id_entity' => 1,'category_id' => '2','name' => 'Mofongo','description' => 'Mofongo','price' => '390'],
+            ['id_entity' => 1,'category_id' => '4','name' => 'Cheesecake','description' => 'Cheesecake','price' => '180'],
+            ['id_entity' => 1,'category_id' => '4','name' => 'Bolitas de coco','description' => 'Bolitas de coco','price' => '150'],
+            ['id_entity' => 1,'category_id' => '5','name' => 'Botella de agua','description' => 'Botella de agua','price' => '50'],
+            ['id_entity' => 1,'category_id' => '5','name' => 'Jugo de fresa','description' => 'Jugo de fresa','price' => '125'],
+            ['id_entity' => 1,'category_id' => '5','name' => 'Mojito','description' => 'Mojito','price' => '125'],
         ]);
 
         Storage::makeDirectory('public/products');
