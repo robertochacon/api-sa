@@ -9,7 +9,7 @@ class Orders extends Model
     protected $table = 'orders';
 
     protected $fillable = [
-        'id','id_entity','products','table','total','note','in_restaurant','status'
+        'id','id_entity','products','other_products','table','total','extra','note','in_restaurant','status'
     ];
 
     public function entity()

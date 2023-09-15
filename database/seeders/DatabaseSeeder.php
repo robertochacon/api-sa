@@ -25,8 +25,8 @@ class DatabaseSeeder extends Seeder
         //users
         DB::table('users')->insert([
             ['id_entity' => 1,'code' => '0000','name' => 'Gestor','role' => 'Gestor','password' => bcrypt('2023'), 'created_at' => date("Y-m-d H:i:s")],
-            ['id_entity' => 1,'code' => '2023','name' => 'Administrador','role' => 'Administrador','password' => bcrypt('2023'), 'created_at' => date("Y-m-d H:i:s")],
-            ['id_entity' => 1,'code' => '2024','name' => 'Vendedor','role' => 'Vendedor','password' => bcrypt('2023'), 'created_at' => date("Y-m-d H:i:s")],
+            ['id_entity' => 1,'code' => '0001','name' => 'Administrador','role' => 'Administrador','password' => bcrypt('2023'), 'created_at' => date("Y-m-d H:i:s")],
+            ['id_entity' => 1,'code' => '0002','name' => 'Vendedor','role' => 'Vendedor','password' => bcrypt('2023'), 'created_at' => date("Y-m-d H:i:s")],
         ]);
 
         //categories

@@ -18,9 +18,11 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('id_entity')->nullable();
             $table->foreign('id_entity')->references('id')->on('entities');
             $table->json('products')->nullable();
+            $table->json('other_products')->nullable();
             $table->integer('table')->nullable();
             $table->integer('total')->nullable();
             $table->string('note')->nullable();
+            $table->string('extra')->nullable();
             $table->boolean('in_restaurant')->default('1');
             $table->enum('status',['Recibida','Preparando','Completada','Facturada','Cancelada'])->default('Recibida');
             $table->timestamps();
