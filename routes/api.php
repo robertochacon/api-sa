@@ -68,6 +68,8 @@ Route::group([
     Route::put('/orders/{id}', [OrdersController::class, 'update']);
     Route::delete('/orders/{id}', [OrdersController::class, 'delete']);
 
+    Route::get('/callwaiter/{entity}/{table}', [OrdersController::class, 'callwaiter']);
+
     //users
     Route::get('/users/', [UserController::class, 'index']);
     Route::get('/users/{id}/', [UserController::class, 'watch']);

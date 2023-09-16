@@ -13,6 +13,51 @@ use Carbon\Carbon;
 
 class OrdersController extends Controller
 {
+
+        /**
+     * @OA\Get(
+     *      path="/api/callwaiter/{entity}/{table}",
+     *      operationId="callwaiter",
+     *      tags={"Orders"},
+     *     security={{ "apiAuth": {} }},
+     *      summary="Call waiter",
+     *      description="Call waiter",
+     *      @OA\Parameter(
+     *         in="path",
+     *         name="entity",
+     *         required=true,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Parameter(
+     *         in="path",
+     *         name="table",
+     *         required=true,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Response(
+     *          response=200, description="Success",
+     *          @OA\JsonContent(
+     *             @OA\Property(property="status", type="integer", example=""),
+     *             @OA\Property(property="data",type="object")
+     *          )
+     *       )
+     *  )
+     */
+
+     public function callWaiter($entity, $table)
+     {
+        try {
+            $msg['entity'] = $entity;
+            $msg['table'] = $table;
+            $msg['msg'] = 'call_waiter';
+            event(new OrderEvent($msg));
+            return response()->json(["data"=>"ok"],200);
+        } catch (\Throwable $th) {
+            //throw $th;
+            return response()->json(["data"=>"fail"],500);
+        }
+
+     }
     
     /**
      * @OA\Get (

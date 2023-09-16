@@ -821,6 +821,60 @@
                 ]
             }
         },
+        "/api/callwaiter/{entity}/{table}": {
+            "get": {
+                "tags": [
+                    "Orders"
+                ],
+                "summary": "Call waiter",
+                "description": "Call waiter",
+                "operationId": "callwaiter",
+                "parameters": [
+                    {
+                        "name": "entity",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "table",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": ""
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
         "/api/orders/total/{id}": {
             "get": {
                 "tags": [
