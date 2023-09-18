@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Artisan;
 use App\Models\User;
+use App\Models\Entities;
 
 class AuthController extends Controller
 {
@@ -130,8 +131,10 @@ class AuthController extends Controller
         }
 
         $user = User::where('id',auth()->user()['id'])->first();
+        $entity = Entities::where('id',$user['id_entity'])->first();
         $datos['token'] = $token;
         $datos['user'] = $user;
+        $datos['entity'] = $entity;
         return $this->respondWithToken($datos);
 
     }

@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
 
         //entities
         DB::table('entities')->insert([
-            ['name' => 'Example bussines','description' => 'business example desc.','phone' => null, 'created_at' => date("Y-m-d H:i:s")],
+            ['name' => 'Example bussines','description' => 'business example desc.','phone' => null,'tables' => 15, 'created_at' => date("Y-m-d H:i:s")],
         ]);
 
         //users
