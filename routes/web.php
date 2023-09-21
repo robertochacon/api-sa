@@ -16,3 +16,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/mail', function () {
+    $entity = 'Example';
+    return view('mails.registered',['entity']);
+});

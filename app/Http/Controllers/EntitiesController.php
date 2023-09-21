@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Entities;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\RegisteredMail;
 
 class EntitiesController extends Controller
 {
@@ -124,9 +126,22 @@ class EntitiesController extends Controller
             $uploadFile->storeAs('public/entities', $file_name);
             $data['image'] = request()->getSchemeAndHttpHost().'/storage/entities/'.$file_name;
         }
+
         $entities = new Entities($data);
+
         $entities->save();
-        return response()->json(["data"=>$entities],200);
+
+        try {
+            //code...
+            Mail::to($request->email)->send(new RegisteredMail());
+            return response()->json(["data"=>$entities],200);
+
+        } catch (\Throwable $th) {
+            //throw $th;
+            return response()->json(["data"=>"fail"],200);
+
+        }
+        
     }
 
     /**
