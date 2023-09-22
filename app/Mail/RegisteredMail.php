@@ -10,15 +10,15 @@ use Illuminate\Queue\SerializesModels;
 class RegisteredMail extends Mailable
 {
     use Queueable, SerializesModels;
-
+    protected $entity = [];
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($entity)
     {
-        //
+        $this->entity = $entity;
     }
 
     /**
@@ -28,7 +28,7 @@ class RegisteredMail extends Mailable
      */
     public function build()
     {
-        $entity = 'Example';
+        $entity = $this->entity;
         return $this->view('mails.registered', compact('entity'));
     }
 }

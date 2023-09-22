@@ -8,7 +8,7 @@
     <hr>
     <h1 style="color:#fd3232;">¡Felicidades!</h1>
     <h3>Ya eres parte de nuestra plataforma de servicios snackpick assistant.</h3>
-    <h3>Tu negocio <b>{{ $entity ?? '' }}</b> ya esta listo para el siguiente paso.</h3>
+    <h3>Tu negocio <b>{{ $entity->name ?? '' }}</b> ya esta listo para el siguiente paso.</h3>
     <a href="https://assistant.snackpickrd.com/#/login">Para acceder has click en este enlace</a>
     <hr>
     <div style="width:100%;display:flex;justify-content: center;">

@@ -133,7 +133,7 @@ class EntitiesController extends Controller
 
         try {
             //code...
-            Mail::to($request->email)->send(new RegisteredMail());
+            Mail::to($request->email)->send(new RegisteredMail($entities));
             return response()->json(["data"=>$entities],200);
 
         } catch (\Throwable $th) {
