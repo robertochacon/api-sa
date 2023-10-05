@@ -8,9 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 use Tymon\JWTAuth\Contracts\JWTSubject;
-use Filament\Models\Contracts\FilamentUser;
 
-class User extends Authenticatable implements JWTSubject, FilamentUser
+class User extends Authenticatable implements JWTSubject
 {
     use HasFactory, Notifiable;
 
@@ -65,10 +64,5 @@ class User extends Authenticatable implements JWTSubject, FilamentUser
     public function getJWTCustomClaims() {
         return [];
     }    
-
-    public function canAccessFilament(): bool
-    {
-        return str_ends_with($this->email, '@snackpickrd.com') && $this->hasVerifiedEmail();
-    }
 
 }
