@@ -22,7 +22,7 @@ class CreateProductsTable extends Migration
             $table->string('name')->nullable();
             $table->string('description')->nullable();
             $table->integer('price')->nullable();
-            $table->longText('image')->nullable();
+            $table->string('image')->nullable();
             $table->enum('status',['Disponible','No disponible'])->default('Disponible');
             $table->timestamps();
         });

@@ -24,9 +24,9 @@ class DatabaseSeeder extends Seeder
 
         //users
         DB::table('users')->insert([
-            ['id_entity' => 1,'code' => '0000','name' => 'Gestor','role' => 'Gestor','password' => bcrypt('2023'), 'created_at' => date("Y-m-d H:i:s")],
-            ['id_entity' => 1,'code' => '0001','name' => 'Administrador','role' => 'Administrador','password' => bcrypt('2023'), 'created_at' => date("Y-m-d H:i:s")],
-            ['id_entity' => 1,'code' => '0002','name' => 'Vendedor','role' => 'Vendedor','password' => bcrypt('2023'), 'created_at' => date("Y-m-d H:i:s")],
+            ['id_entity' => 1,'code' => '0000','name' => 'Gestor','email' => 'admin@gmail.com','role' => 'Gestor','password' => bcrypt('admin'), 'created_at' => date("Y-m-d H:i:s")],
+            ['id_entity' => 1,'code' => '0001','name' => 'Entity 1','email' => 'entity1@gmail.com','role' => 'Administrador','password' => bcrypt('2023'), 'created_at' => date("Y-m-d H:i:s")],
+            ['id_entity' => 1,'code' => '0002','name' => 'Vendedor','email' => 'vendedor1@gmail.com','role' => 'Vendedor','password' => bcrypt('2023'), 'created_at' => date("Y-m-d H:i:s")],
         ]);
 
         //categories

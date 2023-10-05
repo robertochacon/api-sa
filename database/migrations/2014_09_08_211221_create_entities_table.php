@@ -22,7 +22,7 @@ class CreateEntitiesTable extends Migration
             $table->string('email')->nullable();
             $table->string('latitude')->nullable();
             $table->string('length')->nullable();
-            $table->text('image')->nullable();
+            $table->string('image')->nullable();
             $table->integer('tables')->nullable();
             $table->enum('status',['active','inactive'])->default('active');
             $table->timestamps();

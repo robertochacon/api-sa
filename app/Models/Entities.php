@@ -12,5 +12,15 @@ class Entities extends Model
         'id','name','description','address','phone','email','latitude','length','image','tables','status'
     ];
 
+    public function categories()
+    {
+    	return $this->hasMany('App\Models\Categories', 'id_entity');
+    }
+
+    public function products()
+    {
+    	return $this->hasMany('App\Models\Products', 'id_entity');
+    }
+
 }
 
