@@ -2,15 +2,15 @@
 
 namespace App\Models;
 
+use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 use Tymon\JWTAuth\Contracts\JWTSubject;
-use Filament\Models\Contracts\FilamentUser;
 
-class User extends Authenticatable implements JWTSubject, FilamentUser
+class User extends Authenticatable implements FilamentUser, JWTSubject
 {
     use HasFactory, Notifiable;
 
@@ -68,7 +68,8 @@ class User extends Authenticatable implements JWTSubject, FilamentUser
 
     public function canAccessFilament(): bool
     {
-        return str_ends_with($this->email, '@gmail.com') && $this->hasVerifiedEmail();
+        return str_ends_with($this->email, '@gmail.com');
+        // return str_ends_with($this->email, '@gmail.com') && $this->hasVerifiedEmail();
     }
 
 }
