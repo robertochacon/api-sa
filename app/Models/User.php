@@ -68,8 +68,7 @@ class User extends Authenticatable implements FilamentUser, JWTSubject
 
     public function canAccessFilament(): bool
     {
-        return str_ends_with($this->email, '@gmail.com');
-        // return str_ends_with($this->email, '@gmail.com') && $this->hasVerifiedEmail();
+        return true;
     }
 
 }

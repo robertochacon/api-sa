@@ -18,6 +18,7 @@ class CreateCategoriesTable extends Migration
             $table->unsignedBigInteger('id_entity')->nullable();
             $table->foreign('id_entity')->references('id')->on('entities');
             $table->string('name')->nullable();
+            $table->boolean('status')->default(1)->nullable();
             $table->timestamps();
         });
     }

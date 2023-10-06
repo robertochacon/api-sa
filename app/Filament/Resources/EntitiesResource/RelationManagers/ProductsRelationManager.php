@@ -20,7 +20,7 @@ class ProductsRelationManager extends RelationManager
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('id_entity')->relationship('entity', 'name')->searchable(),
+                // Forms\Components\Select::make('id_entity')->relationship('entity', 'name')->searchable(),
                 Forms\Components\Select::make('id_category')->relationship('categories', 'name')->searchable(),
                 Forms\Components\TextInput::make('name')
                     ->required()
@@ -33,7 +33,7 @@ class ProductsRelationManager extends RelationManager
                     ->required(),
                 Forms\Components\FileUpload::make('image')
                     ->maxSize(1024),
-                Forms\Components\Checkbox::make('status'),
+                Forms\Components\Toggle::make('status'),
             ]);
     }
 
@@ -44,7 +44,7 @@ class ProductsRelationManager extends RelationManager
                 Tables\Columns\TextColumn::make('name'),
                 Tables\Columns\TextColumn::make('price'),
                 Tables\Columns\ImageColumn::make('image'),
-                Tables\Columns\CheckboxColumn::make('status'),
+                Tables\Columns\ToggleColumn::make('status'),
             ])
             ->filters([
                 //

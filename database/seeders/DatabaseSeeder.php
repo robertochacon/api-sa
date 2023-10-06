@@ -17,15 +17,22 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
+        //plans
+        DB::table('plans')->insert([
+            ['name' => 'Mensual','price' => 600,'created_at' => date("Y-m-d H:i:s")],
+            ['name' => 'Trimestral','price' => 1800,'created_at' => date("Y-m-d H:i:s")],
+            ['name' => 'Anual','price' => 21600,'created_at' => date("Y-m-d H:i:s")],
+        ]);
+
         //entities
         DB::table('entities')->insert([
-            ['name' => 'Example bussines','description' => 'business example desc.','phone' => null,'tables' => 15, 'created_at' => date("Y-m-d H:i:s")],
+            ['id_plan' => 1,'name' => 'Default','description' => 'Default example desc.','email'=>'default@gmail.com','phone' => null,'tables' => 15, 'created_at' => date("Y-m-d H:i:s")],
         ]);
 
         //users
         DB::table('users')->insert([
-            ['id_entity' => 1,'code' => '0000','name' => 'Gestor','email' => 'admin@gmail.com','role' => 'Gestor','password' => bcrypt('admin'), 'created_at' => date("Y-m-d H:i:s")],
-            ['id_entity' => 1,'code' => '0001','name' => 'Entity 1','email' => 'entity1@gmail.com','role' => 'Administrador','password' => bcrypt('2023'), 'created_at' => date("Y-m-d H:i:s")],
+            ['id_entity' => 1,'code' => '0000','name' => 'Administrador','email' => 'admin@gmail.com','role' => 'Gestor','password' => bcrypt('admin'), 'created_at' => date("Y-m-d H:i:s")],
+            ['id_entity' => 1,'code' => '0001','name' => 'Negocio 1','email' => 'n1@gmail.com','role' => 'Administrador','password' => bcrypt('2023'), 'created_at' => date("Y-m-d H:i:s")],
             ['id_entity' => 1,'code' => '0002','name' => 'Vendedor','email' => 'vendedor1@gmail.com','role' => 'Vendedor','password' => bcrypt('2023'), 'created_at' => date("Y-m-d H:i:s")],
         ]);
 

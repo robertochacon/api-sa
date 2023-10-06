@@ -12,12 +12,6 @@ use Filament\Resources\Table;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Textarea;
-use Filament\Forms\Components\FileUpload;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Columns\CheckboxColumn;
 
 class EntitiesResource extends Resource
 {
@@ -30,14 +24,15 @@ class EntitiesResource extends Resource
         return $form
             ->schema([
                 //
-                TextInput::make('name')->required(),
-                TextInput::make('phone')->numeric(),
-                TextInput::make('email')->required()->email(),
-                TextInput::make('tables')->numeric()->required(),
-                Textarea::make('description'),
-                Textarea::make('address'),
-                FileUpload::make('image')
-                ->maxSize(1024)
+                Forms\Components\Select::make('id_plan')->relationship('plans', 'name')->searchable(),
+                Forms\Components\TextInput::make('name')->required(),
+                Forms\Components\TextInput::make('phone')->numeric(),
+                Forms\Components\TextInput::make('email')->required()->email(),
+                Forms\Components\TextInput::make('tables')->numeric()->required(),
+                Forms\Components\FileUpload::make('image')
+                ->maxSize(1024),
+                Forms\Components\Textarea::make('description'),
+                Forms\Components\Textarea::make('address'),
             ]);
     }
 
@@ -46,12 +41,16 @@ class EntitiesResource extends Resource
         return $table
             ->columns([
                 //
-                TextColumn::make('name'),
-                TextColumn::make('tables'),
-                TextColumn::make('email'),
-                TextColumn::make('created_at')
+                Tables\Columns\ImageColumn::make('image'),
+                Tables\Columns\TextColumn::make('name')
+                ->searchable(),
+                Tables\Columns\TextColumn::make('plans.name'),
+                Tables\Columns\TextColumn::make('tables'),
+                Tables\Columns\TextColumn::make('email')
+                ->searchable(),
+                Tables\Columns\TextColumn::make('created_at')
                 ->since(),
-                CheckboxColumn::make('status')
+                Tables\Columns\ToggleColumn::make('status')
             ])
             ->filters([
                 //

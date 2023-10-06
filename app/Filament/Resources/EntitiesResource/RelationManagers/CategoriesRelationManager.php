@@ -23,6 +23,7 @@ class CategoriesRelationManager extends RelationManager
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
+                Forms\Components\Toggle::make('status'),
             ]);
     }
 
@@ -31,6 +32,7 @@ class CategoriesRelationManager extends RelationManager
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name'),
+                Tables\Columns\ToggleColumn::make('status'),
             ])
             ->filters([
                 //

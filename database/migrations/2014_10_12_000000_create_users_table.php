@@ -26,7 +26,7 @@ class CreateUsersTable extends Migration
             $table->boolean('approved')->default(0)->nullable();
             $table->boolean('verified')->default(0)->nullable();
             $table->datetime('verified_at')->nullable();
-            $table->enum('status',['Disponible','No disponible'])->default('Disponible');
+            $table->boolean('status')->default(1)->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
