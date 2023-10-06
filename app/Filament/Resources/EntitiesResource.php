@@ -17,7 +17,9 @@ class EntitiesResource extends Resource
 {
     protected static ?string $model = Entities::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-office-building';
+
+    protected static ?string $navigationGroup = 'Business';
 
     public static function form(Form $form): Form
     {
